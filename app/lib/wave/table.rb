@@ -114,14 +114,16 @@ module Wave
       attr_accessor :title, :detail
       attr_accessor :style, :reuse_identifier
       
-      attr_accessor :cell_builder, :cell_customizer
+      attr_accessor :cell_builder, :cell_customizer, :cell
       
       attr_accessor :action, :target
       
       def initialize
         @reuse_identifier = "com.helloresolven.wave"
         @style = UITableViewCellStyleDefault
-        @cell_builder = lambda { |row| UITableViewCell.alloc.initWithStyle(row.style, reuseIdentifier:row.reuse_identifier) }
+        @cell_builder = lambda { |row| 
+          row.cell = UITableViewCell.alloc.initWithStyle(row.style, reuseIdentifier:row.reuse_identifier) 
+        }
         
         @cell_customizer = lambda do |cell|
           cell.textLabel.text = @title
